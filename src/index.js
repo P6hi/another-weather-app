@@ -1,5 +1,7 @@
 import './styles/main.scss';
 
+let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+
 function getPos() {
     return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(res, rej);
@@ -59,11 +61,11 @@ function addToDOM(weatherObj) {
     const pHumid = document.createElement('p');
     const pWind= document.createElement('p');
 
-    pLoc.textContent = weatherObj.loc;
-    pCountry.textContent = weatherObj.country;
-    pTemp.textContent = `${weatherObj.temp}°C`;
+    pLoc.textContent = `Location: ${weatherObj.loc}`;
+    pCountry.textContent = `Country: ${regionNames.of(weatherObj.country)}`;
+    pTemp.textContent = `Temperature: ${weatherObj.temp}°C`;
     pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C`;
-    pDesc.textContent = weatherObj.desc;
+    pDesc.textContent = `Weather: ${weatherObj.desc}`;
     pHumid.textContent = `Humidity: ${weatherObj.humidity}%`;
     pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s`;
 
