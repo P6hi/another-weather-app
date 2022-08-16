@@ -25,7 +25,7 @@ async function weatherLoad() {
         country: userJSON.sys.country,
         temp: userJSON.main.temp,
         feelsLike: userJSON.main.feels_like,
-        desc: userJSON.weather[0].description,
+        desc: userJSON.weather[0].description.charAt(0).toUpperCase() + userJSON.weather[0].description.slice(1),
         humidity: userJSON.main.humidity,
         windSpeed: userJSON.wind.speed
     }
@@ -40,13 +40,54 @@ async function searchWeather(location) {
         country: weatherJSON.sys.country,
         temp: weatherJSON.main.temp,
         feelsLike: weatherJSON.main.feels_like,
-        desc: weatherJSON.weather[0].description,
+        desc: weatherJSON.weather[0].description.charAt(0).toUpperCase() + weatherJSON.weather[0].description.slice(1),
         humidity: weatherJSON.main.humidity,
         windSpeed: weatherJSON.wind.speed
     }
     return weatherData;
 }
 
-weatherLoad();
-searchWeather('Tallinn');
+function addToDOM(weatherObj) {
+    const body = document.querySelector('body');
+    const container = document.querySelector('.weather-info');
+    container.textContent = '';
+    const pLoc = document.createElement('p');
+    const pCountry = document.createElement('p');
+    const pTemp = document.createElement('p');
+    const pFeels = document.createElement('p');
+    const pDesc = document.createElement('p');
+    const pHumid = document.createElement('p');
+    const pWind= document.createElement('p');
+
+    pLoc.textContent = weatherObj.loc;
+    pCountry.textContent = weatherObj.country;
+    pTemp.textContent = `${weatherObj.temp}°C`;
+    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C`;
+    pDesc.textContent = weatherObj.desc;
+    pHumid.textContent = `Humidity: ${weatherObj.humidity}%`;
+    pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s`;
+
+    container.appendChild(pLoc);
+    container.appendChild(pCountry);
+    container.appendChild(pTemp);
+    container.appendChild(pFeels);
+    container.appendChild(pDesc);
+    container.appendChild(pHumid);
+    container.appendChild(pWind);
+
+    body.appendChild(container);
+}
+
+window.addEventListener('load', () => {
+    weatherLoad().then(data => addToDOM(data));
+})
+
+const input = document.querySelector('.weather-input');
+const submitBtn = document.querySelector('.submit');
+
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const userInput = input.value;
+    searchWeather(userInput).then(data => addToDOM(data));
+})
 
