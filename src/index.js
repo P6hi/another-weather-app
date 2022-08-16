@@ -11,7 +11,7 @@ function apiCall(latitude, longitude) {
 }
 
 function apiSearch(loc) {
-    return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${loc}&units=metric&appid=31d60ae22906002464e0e7f4ef608bc5`, {mode: 'cors'})
+    return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${loc}&units=metric&appid=31d60ae22906002464e0e7f4ef608bc5`, {mode: 'cors'})
 }
 
 async function weatherLoad() {
