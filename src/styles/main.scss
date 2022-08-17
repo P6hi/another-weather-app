@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/montserrat-v24-latin-regular.woff2") format("woff2"),
+      url("../assets/fonts/montserrat-v24-latin-regular.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+  }
+
+body {
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+    background-color: rgb(207, 221, 233);
+    padding: 0;
+    margin: 0;
+    display: grid;
+}
+
+.header {
+    background-color: rgb(103, 121, 126);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.weather-input {
+    border-radius: 10px;
+    border: transparent;
+    background-color: aliceblue;
+    padding: 0.5rem;
+    outline: transparent;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.weather-input:focus, .weather-input:hover {
+    background-color: rgb(207, 221, 233);
+}
+
+.submit {
+    border-radius: 10px;
+    border: transparent;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.5s;
+    outline: transparent;
+    cursor: pointer;
+}
+
+.submit:active, .submit:hover {
+    background-color: rgb(207, 221, 233);
+}
+
+input:placeholder-shown {
+    font-style: italic;
+ }
+
+ .weather-info {
+    margin-top: 2rem;
+    padding: 1rem 3rem;
+    width: 25%;
+    color: white;
+    align-self: center;
+    justify-self: center;
+    background: rgb(103, 121, 126);
+    display: grid;
+    justify-items: center;
+    border-radius: 20px;
+ }
