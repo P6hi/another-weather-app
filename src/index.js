@@ -62,7 +62,7 @@ function addToDOM(weatherObj) {
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
     pTemp.textContent = `Temperature: ${weatherObj.temp}°C (${getBurgerTemperature(weatherObj.temp)}°F)`;
-    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C (${getBurgerTemperature(weatherObj.feelsLike)}°C)`;
+    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C (${getBurgerTemperature(weatherObj.feelsLike)}°F)`;
     pDesc.textContent = `Weather: ${weatherObj.desc}`;
     pHumid.textContent = `Humidity: ${weatherObj.humidity}%`;
     pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s (${getBurgerSpeed(weatherObj.windSpeed)} ft/s)`;
