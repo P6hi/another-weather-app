@@ -54,15 +54,13 @@ function addToDOM(weatherObj) {
     const container = document.querySelector('.weather-info');
     container.textContent = '';
     const pLoc = document.createElement('p');
-    const pCountry = document.createElement('p');
     const pTemp = document.createElement('p');
     const pFeels = document.createElement('p');
     const pDesc = document.createElement('p');
     const pHumid = document.createElement('p');
     const pWind= document.createElement('p');
 
-    pLoc.textContent = `Location: ${weatherObj.loc}`;
-    pCountry.textContent = `Country: ${regionNames.of(weatherObj.country)}`;
+    pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
     pTemp.textContent = `Temperature: ${weatherObj.temp}°C`;
     pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C`;
     pDesc.textContent = `Weather: ${weatherObj.desc}`;
@@ -70,7 +68,6 @@ function addToDOM(weatherObj) {
     pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s`;
 
     container.appendChild(pLoc);
-    container.appendChild(pCountry);
     container.appendChild(pTemp);
     container.appendChild(pFeels);
     container.appendChild(pDesc);
@@ -92,4 +89,3 @@ submitBtn.addEventListener('click', (e) => {
     const userInput = input.value;
     searchWeather(userInput).then(data => addToDOM(data));
 })
-
