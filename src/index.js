@@ -29,7 +29,8 @@ async function weatherLoad() {
         feelsLike: userJSON.main.feels_like,
         desc: userJSON.weather[0].description.charAt(0).toUpperCase() + userJSON.weather[0].description.slice(1),
         humidity: userJSON.main.humidity,
-        windSpeed: userJSON.wind.speed
+        windSpeed: userJSON.wind.speed,
+        icon: userJSON.weather[0].icon
     }
     return userWeatherData;
 }
@@ -44,7 +45,8 @@ async function searchWeather(location) {
         feelsLike: weatherJSON.main.feels_like,
         desc: weatherJSON.weather[0].description.charAt(0).toUpperCase() + weatherJSON.weather[0].description.slice(1),
         humidity: weatherJSON.main.humidity,
-        windSpeed: weatherJSON.wind.speed
+        windSpeed: weatherJSON.wind.speed,
+        icon: weatherJSON.weather[0].icon
     }
     return weatherData;
 }
@@ -58,7 +60,10 @@ function addToDOM(weatherObj) {
     const pFeels = document.createElement('p');
     const pDesc = document.createElement('p');
     const pHumid = document.createElement('p');
-    const pWind= document.createElement('p');
+    const pWind = document.createElement('p');
+    const icon = document.createElement('img');
+
+    icon.src =  `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
     pTemp.textContent = `Temperature: ${weatherObj.temp}°C`;
@@ -73,6 +78,7 @@ function addToDOM(weatherObj) {
     container.appendChild(pDesc);
     container.appendChild(pHumid);
     container.appendChild(pWind);
+    container.appendChild(icon);
 
     body.appendChild(container);
 }
