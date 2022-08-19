@@ -54,7 +54,7 @@ function addForecast(weatherObj) {
         const forecastContainer = document.createElement('div');
         const fDate = document.createElement('p');
         const icon = document.createElement('img');
-        icon.src =  `http://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+        icon.src =  `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
         const fTemp = document.createElement('p');
         const fDesc = document.createElement('p');
 
@@ -117,7 +117,7 @@ function addToDOM(weatherObj) {
     const pWind = document.createElement('p');
     const icon = document.createElement('img');
 
-    icon.src = `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
+    icon.src = `https://openweathermap.org/img/wn/${weatherObj.icon}.png`
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
     pTemp.textContent = `Temperature: ${Math.round(weatherObj.temp)}°C (${getBurgerTemperature(weatherObj.temp)}°F)`;
