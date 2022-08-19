@@ -59,7 +59,7 @@ function addForecast(weatherObj) {
         const fDesc = document.createElement('p');
 
         fDate.textContent = newDate;
-        fTemp.textContent = `${item.main.temp}°C`;
+        fTemp.textContent = `${Math.round(item.main.temp)}°C`;
         fDesc.textContent = `${item.weather[0].description.charAt(0).toUpperCase() + item.weather[0].description.slice(1)}`;
 
         forecastContainer.appendChild(fDate);
@@ -94,7 +94,7 @@ async function searchWeather(location) {
     const weatherData = {
         loc: weatherJSON.name,
         country: weatherJSON.sys.country,
-        temp: weatherJSON.main.temp,
+        temp: Math.round((weatherJSON.main.temp * 10) / 10),
         feelsLike: weatherJSON.main.feels_like,
         desc: weatherJSON.weather[0].description.charAt(0).toUpperCase() + weatherJSON.weather[0].description.slice(1),
         humidity: weatherJSON.main.humidity,
@@ -120,8 +120,8 @@ function addToDOM(weatherObj) {
     icon.src = `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
-    pTemp.textContent = `Temperature: ${weatherObj.temp}°C (${getBurgerTemperature(weatherObj.temp)}°F)`;
-    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C (${getBurgerTemperature(weatherObj.feelsLike)}°F)`;
+    pTemp.textContent = `Temperature: ${Math.round(weatherObj.temp)}°C (${getBurgerTemperature(weatherObj.temp)}°F)`;
+    pFeels.textContent = `Feels like: ${Math.round(weatherObj.feelsLike)}°C (${getBurgerTemperature(weatherObj.feelsLike)}°F)`;
     pDesc.textContent = `Weather: ${weatherObj.desc}`;
     pHumid.textContent = `Humidity: ${weatherObj.humidity}%`;
     pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s (${getBurgerSpeed(weatherObj.windSpeed)} ft/s)`;
@@ -139,12 +139,12 @@ function addToDOM(weatherObj) {
 
 function getBurgerTemperature(tempCel) {
     var temp = parseFloat(tempCel);
-    return temp * 9 / 5 + 32;
+    return Math.round(temp * 9 / 5 + 32);
 }
 
 function getBurgerSpeed(speedMS) {
     var speed = parseFloat(speedMS);
-    return speed * 3.28084;
+    return Math.round(speed * 3.28084);
 }
 
 window.addEventListener('load', () => {
