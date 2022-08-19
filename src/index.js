@@ -119,11 +119,11 @@ function addToDOM(weatherObj) {
     icon.src = `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
-    pTemp.textContent = `Temperature: ${weatherObj.temp}°C`;
-    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C`;
+    pTemp.textContent = `Temperature: ${weatherObj.temp}°C (${getBurgerTemperature(weatherObj.temp)}°F)`;
+    pFeels.textContent = `Feels like: ${weatherObj.feelsLike}°C (${getBurgerTemperature(weatherObj.feelsLike)}°F)`;
     pDesc.textContent = `Weather: ${weatherObj.desc}`;
     pHumid.textContent = `Humidity: ${weatherObj.humidity}%`;
-    pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s`;
+    pWind.textContent = `Wind speed: ${weatherObj.windSpeed} m/s (${getBurgerSpeed(weatherObj.windSpeed)} ft/s)`;
 
     container.appendChild(pLoc);
     container.appendChild(pTemp);
@@ -134,6 +134,16 @@ function addToDOM(weatherObj) {
     container.appendChild(icon);
 
     main.appendChild(container);
+}
+
+function getBurgerTemperature(tempCel) {
+    var temp = parseFloat(tempCel);
+    return temp * 9 / 5 + 32;
+}
+
+function getBurgerSpeed(speedMS) {
+    var speed = parseFloat(speedMS);
+    return speed * 3.28084;
 }
 
 window.addEventListener('load', () => {
@@ -148,11 +158,8 @@ const submitBtn = document.querySelector('.submit');
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const userInput = input.value;
     searchWeather(userInput).then(data => {
         addToDOM(data);
         addForecast(data);
     });
 })
-
-
