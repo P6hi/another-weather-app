@@ -45,7 +45,7 @@ async function weatherLoad() {
 }
 
 function addForecast(weatherObj) {
-    const body = document.querySelector('body');
+    const main = document.querySelector('.main');
     const container = document.querySelector('.forecast');
     weatherObj.forecast.forEach(item => {
         const date = item.dt_txt.split(' ');
@@ -68,7 +68,7 @@ function addForecast(weatherObj) {
         container.appendChild(forecastContainer);
     });
 
-    body.appendChild(container);
+    main.appendChild(container);
 }
 
 function weatherLoadForecast(latitude, longitude) {
@@ -105,7 +105,7 @@ async function searchWeather(location) {
 }
 
 function addToDOM(weatherObj) {
-    const body = document.querySelector('body');
+    const main = document.querySelector('.main');
     const container = document.querySelector('.weather-info');
     container.textContent = '';
     const pLoc = document.createElement('p');
@@ -116,7 +116,7 @@ function addToDOM(weatherObj) {
     const pWind = document.createElement('p');
     const icon = document.createElement('img');
 
-    icon.src =  `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
+    icon.src = `http://openweathermap.org/img/wn/${weatherObj.icon}.png`
 
     pLoc.textContent = `${weatherObj.loc}, ${regionNames.of(weatherObj.country)}`;
     pTemp.textContent = `Temperature: ${weatherObj.temp}°C`;
@@ -133,7 +133,7 @@ function addToDOM(weatherObj) {
     container.appendChild(pWind);
     container.appendChild(icon);
 
-    body.appendChild(container);
+    main.appendChild(container);
 }
 
 window.addEventListener('load', () => {

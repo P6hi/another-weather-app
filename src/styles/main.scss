@@ -66,3 +66,18 @@ input:placeholder-shown {
     justify-items: center;
     border-radius: 20px;
  }
+
+ .main {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+ }
+
+ .forecast {
+    display: flex;
+    gap: 2rem;
+    div {
+        text-align: center;
+    }
+ }
