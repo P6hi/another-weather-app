@@ -17,31 +17,39 @@ function apiSearch(loc) {
 }
 
 async function weatherLoad() {
-    const userPos = await getPos();
-    const userLat = userPos.coords.latitude;
-    const userLong = userPos.coords.longitude;
-    const userAPI = await apiCall(userLat, userLong);
-    const userJSON = await userAPI.json();
-    const userForecast = await weatherLoadForecast(userLat, userLong);
-    const userForecastJSON = await userForecast.json();
-    const fiveDay = [];
-    userForecastJSON.list.forEach(item => {
-        if (item.dt_txt.includes("12:00:00")) {
-            fiveDay.push(item);
+    try {
+        const userPos = await getPos();
+        const userLat = userPos.coords.latitude;
+        const userLong = userPos.coords.longitude;
+        const userAPI = await apiCall(userLat, userLong);
+        if (userAPI.ok === true) {
+            const userJSON = await userAPI.json();
+            const userForecast = await weatherLoadForecast(userLat, userLong);
+            const userForecastJSON = await userForecast.json();
+            const fiveDay = [];
+            userForecastJSON.list.forEach(item => {
+                if (item.dt_txt.includes("12:00:00")) {
+                    fiveDay.push(item);
+                }
+            })
+            const userWeatherData = {
+                loc: userJSON.name,
+                country: userJSON.sys.country,
+                temp: userJSON.main.temp,
+                feelsLike: userJSON.main.feels_like,
+                desc: userJSON.weather[0].description.charAt(0).toUpperCase() + userJSON.weather[0].description.slice(1),
+                humidity: userJSON.main.humidity,
+                windSpeed: userJSON.wind.speed,
+                icon: userJSON.weather[0].icon,
+                forecast: fiveDay
+            }
+            return userWeatherData;
+        } else {
+            throw new Error(userAPI.statusText);
         }
-    })
-    const userWeatherData = {
-        loc: userJSON.name,
-        country: userJSON.sys.country,
-        temp: userJSON.main.temp,
-        feelsLike: userJSON.main.feels_like,
-        desc: userJSON.weather[0].description.charAt(0).toUpperCase() + userJSON.weather[0].description.slice(1),
-        humidity: userJSON.main.humidity,
-        windSpeed: userJSON.wind.speed,
-        icon: userJSON.weather[0].icon,
-        forecast: fiveDay
+    } catch (err) {
+        console.log(err);
     }
-    return userWeatherData;
 }
 
 function addForecast(weatherObj) {
@@ -81,28 +89,37 @@ function weatherSearchForecast(loc) {
 }
 
 async function searchWeather(location) {
-    const weatherSearch = await apiSearch(location);
-    const weatherJSON = await weatherSearch.json();
-    const weatherForecast = await weatherSearchForecast(location);
-    const weatherForecastJSON = await weatherForecast.json();
-    const fiveDay = [];
-    weatherForecastJSON.list.forEach(item => {
-        if (item.dt_txt.includes("12:00:00")) {
-            fiveDay.push(item);
+    try {
+        const weatherSearch = await apiSearch(location);
+        if (weatherSearch.ok === true) {
+            console.log(weatherSearch);
+            const weatherJSON = await weatherSearch.json();
+            const weatherForecast = await weatherSearchForecast(location);
+            const weatherForecastJSON = await weatherForecast.json();
+            const fiveDay = [];
+            weatherForecastJSON.list.forEach(item => {
+                if (item.dt_txt.includes("12:00:00")) {
+                    fiveDay.push(item);
+                }
+            })
+            const weatherData = {
+                loc: weatherJSON.name,
+                country: weatherJSON.sys.country,
+                temp: Math.round((weatherJSON.main.temp * 10) / 10),
+                feelsLike: weatherJSON.main.feels_like,
+                desc: weatherJSON.weather[0].description.charAt(0).toUpperCase() + weatherJSON.weather[0].description.slice(1),
+                humidity: weatherJSON.main.humidity,
+                windSpeed: weatherJSON.wind.speed,
+                icon: weatherJSON.weather[0].icon,
+                forecast: fiveDay
+            }
+            return weatherData;
+        } else {
+            throw new Error (weatherSearch.statusText);
         }
-    })
-    const weatherData = {
-        loc: weatherJSON.name,
-        country: weatherJSON.sys.country,
-        temp: Math.round((weatherJSON.main.temp * 10) / 10),
-        feelsLike: weatherJSON.main.feels_like,
-        desc: weatherJSON.weather[0].description.charAt(0).toUpperCase() + weatherJSON.weather[0].description.slice(1),
-        humidity: weatherJSON.main.humidity,
-        windSpeed: weatherJSON.wind.speed,
-        icon: weatherJSON.weather[0].icon,
-        forecast: fiveDay
+    } catch (err) {
+        console.log(err);
     }
-    return weatherData;
 }
 
 function addToDOM(weatherObj) {
