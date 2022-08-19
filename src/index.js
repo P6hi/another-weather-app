@@ -47,6 +47,7 @@ async function weatherLoad() {
 function addForecast(weatherObj) {
     const main = document.querySelector('.main');
     const container = document.querySelector('.forecast');
+    container.textContent = '';
     weatherObj.forecast.forEach(item => {
         const date = item.dt_txt.split(' ');
         const newDate = new Date(date).toDateString();
@@ -158,6 +159,7 @@ const submitBtn = document.querySelector('.submit');
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const userInput = input.value;
     searchWeather(userInput).then(data => {
         addToDOM(data);
         addForecast(data);
