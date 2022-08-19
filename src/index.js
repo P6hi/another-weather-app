@@ -50,7 +50,7 @@ function addForecast(weatherObj) {
     container.textContent = '';
     weatherObj.forecast.forEach(item => {
         const date = item.dt_txt.split(' ');
-        const newDate = new Date(date).toLocaleDateString();
+        const newDate = new Date(date[0]).toLocaleDateString();
         const forecastContainer = document.createElement('div');
         const fDate = document.createElement('p');
         const icon = document.createElement('img');
